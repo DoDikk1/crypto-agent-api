@@ -2,12 +2,11 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 import requests
 import json
-import os  # ВАЖНО: добавили os
+import os  # <--- ЭТО ДОБАВИТЬ
 
 app = Flask(__name__)
 CORS(app)
 
-# Добавляем корневой маршрут
 @app.route('/')
 def home():
     return jsonify({
@@ -19,15 +18,14 @@ def home():
 @app.route('/portfolio/<int:user_id>', methods=['GET'])
 def get_portfolio(user_id):
     try:
-        # Исправленный путь к файлу
+        # ПРАВИЛЬНЫЙ ПУТЬ ДЛЯ RENDER
         base_dir = os.path.dirname(os.path.abspath(__file__))
         file_path = os.path.join(base_dir, 'portfolio.json')
         
-        print(f"Читаем файл: {file_path}")
+        print(f"Читаем файл: {file_path}")  # для отладки
         
         with open(file_path, 'r') as f:
             data = json.load(f)
-            print("Содержимое файла:", data)
         
         user_coins = data.get(str(user_id), [])
         result = []
@@ -42,11 +40,9 @@ def get_portfolio(user_id):
             # Получаем свежую цену с Binance
             try:
                 url = f"https://api.binance.com/api/v3/ticker/price?symbol={symbol}"
-                response = requests.get(url)
-                current_price = float(response.json()['price'])
-            except Exception as e:
-                print(f"Ошибка получения цены для {symbol}: {e}")
-                pass  # оставляем старую, если не получилось
+                current_price = float(requests.get(url).json()['price'])
+            except:
+                pass
             
             total_value = current_price * amount
             total_usd += total_value
@@ -54,11 +50,9 @@ def get_portfolio(user_id):
             # Получаем изменение за 24ч
             try:
                 change_url = f"https://api.binance.com/api/v3/ticker/24hr?symbol={symbol}"
-                change_response = requests.get(change_url)
-                change_data = change_response.json()
+                change_data = requests.get(change_url).json()
                 change = float(change_data['priceChangePercent'])
-            except Exception as e:
-                print(f"Ошибка получения изменения для {symbol}: {e}")
+            except:
                 change = 0
             
             result.append({
