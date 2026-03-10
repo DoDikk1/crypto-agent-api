@@ -1,0 +1,39 @@
+{
+  "8437583351": [
+    {
+      "symbol": "BTCUSDT",
+      "amount": 7.0,
+      "avg_price": 65922.05428571429,
+      "current_price": 68414.78
+    },
+    {
+      "symbol": "ETHUSDT",
+      "amount": 5.0,
+      "avg_price": 3500.0,
+      "current_price": 2013.84
+    }
+  ],
+  "12345": [],
+  "7064849435": [
+    {
+      "symbol": "SOLUSDT",
+      "amount": 1,
+      "avg_price": 85.47,
+      "current_price": 85.48
+    },
+    {
+      "symbol": "BTCUSDT",
+      "amount": 1,
+      "avg_price": 69400.37,
+      "current_price": 69277.04
+    }
+  ],
+  "6849736363": [
+    {
+      "symbol": "BTCUSDT",
+      "amount": 3.0,
+      "avg_price": 70852.62,
+      "current_price": 70852.62
+    }
+  ]
+}
